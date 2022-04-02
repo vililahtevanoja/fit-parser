@@ -90,7 +90,7 @@ fn read_messages(file_path: &str) -> Result<Vec<FitMessage>, Box<dyn Error>> {
             }
             curr_message = FitMessage {
                 name: rec[MESSAGE_NAME_IDX].to_string(),
-                comment: Some(rec[MESSAGE_NAME_IDX].to_string()),
+                comment: Some(rec[COMMENT_IDX].to_string()),
                 fields: Vec::new(),
             };
             println!("Starting message for {}", curr_message.name);
