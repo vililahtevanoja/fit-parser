@@ -45,7 +45,7 @@ enum BaseType {
 
 fn get_base_type_info(number: u8) -> BaseTypeInfo {
     let base_type = BaseType::try_from(number).unwrap();
-    return match base_type {
+    match base_type {
         BaseType::Enum => BaseTypeInfo {
             base_type,
             endian_ability: false,
@@ -182,7 +182,7 @@ fn get_base_type_info(number: u8) -> BaseTypeInfo {
             invalid_value: 0x0000000000000000,
             size: 8,
         },
-    };
+    }
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -299,7 +299,7 @@ fn parse_record_header(b: u8) -> RecordHeader {
             time_offset,
         });
     }
-    return if b & 0b01000000 > 0 {
+    if b & 0b01000000 > 0 {
         // is definition message header
         let contains_extended_definitions = b & 0b00100000 > 0;
         let local_message_type = b & 0b00001111;
@@ -310,7 +310,7 @@ fn parse_record_header(b: u8) -> RecordHeader {
     } else {
         let local_message_type = b & 0b00001111;
         RecordHeader::NormalDataHeader(NormalDataHeader { local_message_type })
-    };
+    }
 }
 
 #[test]
@@ -416,7 +416,7 @@ fn parse_definition_record(
         field_definitions: fields,
         developer_field_definitions: developer_fields,
     };
-    return (record, curr_idx);
+    (record, curr_idx)
 }
 
 #[test]
@@ -591,7 +591,7 @@ impl FitFileHeader {
             data_type,
             crc,
         };
-        return header;
+        header
     }
 }
 
@@ -612,7 +612,7 @@ fn fit_crc(data: &[u8], crc_in: u16) -> u16 {
         crc = (crc >> 4) & 0x0FFF;
         crc = crc ^ tmp ^ CRC_TABLE[((byte >> 4) & 0xF) as usize];
     }
-    return crc;
+    crc
 }
 
 fn fit_crc_vec(data: Vec<u8>, crc_in: u16) -> u16 {
@@ -627,7 +627,7 @@ fn fit_crc_vec(data: Vec<u8>, crc_in: u16) -> u16 {
         crc = (crc >> 4) & 0x0FFF;
         crc = crc ^ tmp ^ CRC_TABLE[((byte >> 4) & 0xF) as usize];
     }
-    return crc;
+    crc
 }
 
 #[test]
