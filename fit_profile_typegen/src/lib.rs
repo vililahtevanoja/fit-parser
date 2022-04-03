@@ -473,9 +473,9 @@ pub fn generate_fit_trait_as_string(t: FitType) -> String {
             format!(" // {}", val.comment)
         };
         let value_name_cased = if val.value_name.chars().next().unwrap().is_digit(10) {
-            format!("_{}", val.value_name.to_case(Case::UpperCamel))
+            format!("_{}", val.value_name.to_case(Case::UpperSnake))
         } else {
-            val.value_name.to_case(Case::UpperCamel)
+            val.value_name.to_case(Case::UpperSnake)
         };
 
         s.push_str(&format!(
