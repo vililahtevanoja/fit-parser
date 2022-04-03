@@ -149,11 +149,11 @@ pub fn read_messages(file_path: &str) -> Result<Vec<FitMessage>, Box<dyn Error>>
                 })
                 .collect::<Vec<FitRefField>>();
             let comment = Some(rec[COMMENT_IDX].clone()).filter(|s| !s.is_empty());
-            let products = rec[PRODUCTS_IDX].clone();
+            let _products = rec[PRODUCTS_IDX].clone(); //not used?
             let example = Some(&rec[EXAMPLE_IDX])
                 .filter(|s| !s.is_empty())
                 .map(|s| s.parse::<u8>().unwrap());
-            let fitMsgField = FitMessageField {
+            let fit_msg_field = FitMessageField {
                 category: curr_category.clone(),
                 definition_number,
                 name,
@@ -169,7 +169,7 @@ pub fn read_messages(file_path: &str) -> Result<Vec<FitMessage>, Box<dyn Error>>
                 comment,
                 example,
             };
-            curr_message.fields.push(fitMsgField);
+            curr_message.fields.push(fit_msg_field);
         }
     }
     fit_messages.push(curr_message);
@@ -420,7 +420,7 @@ pub fn read_profile_types(file_path: &str) -> Result<Vec<FitType>, Box<dyn Error
     Ok(fit_types)
 }
 
-fn fitTypeToRustType(fit_type: &str) -> &str {
+fn fit_type_to_rust_type(fit_type: &str) -> &str {
     match fit_type {
         "uint8" => "u8",
         "uint8z" => "u8",
@@ -465,7 +465,7 @@ pub fn generate_fit_trait_as_string(t: FitType) -> String {
     let mut s = String::new();
     let type_name_cased = t.type_name.to_case(Case::UpperCamel);
     s.push_str(&format!("trait {}Trait {{\n", type_name_cased));
-    let rust_type = fitTypeToRustType(&t.base_type);
+    let rust_type = fit_type_to_rust_type(&t.base_type);
     for val in t.values {
         let comment = if val.comment.is_empty() {
             String::new()
