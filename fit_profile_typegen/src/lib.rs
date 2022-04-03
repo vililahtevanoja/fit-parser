@@ -442,6 +442,9 @@ pub fn generate_enum_type_as_string(t: FitType) -> String {
         t.type_name.to_case(Case::UpperCamel)
     ));
     for val in t.values {
+        if val.comment.trim().to_lowercase().starts_with("deprecated") {
+            continue;
+        }
         let comment = if val.comment.is_empty() {
             String::new()
         } else {

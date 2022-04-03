@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 
-use codegen::Field;
 use codegen::{Scope, Variant};
 use convert_case::Case;
 use convert_case::Casing;

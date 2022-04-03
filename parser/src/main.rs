@@ -2,8 +2,9 @@ use byteorder::{BigEndian, ByteOrder, LittleEndian};
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 
 use std::convert::TryFrom;
-use std::fs::File;
 use std::io::Read;
+
+include!(concat!(env!("OUT_DIR"), "/fit.rs"));
 
 #[derive(Debug, Clone, PartialEq)]
 enum Endianness {
@@ -658,8 +659,8 @@ fn fit_file_header_from_data() {
 }
 
 fn main() {
-    let input_path = "7427193981_ACTIVITY.fit";
-    let mut input_file = File::open(input_path).unwrap();
+    let input_path = "../7427193981_ACTIVITY.fit";
+    let mut input_file = std::fs::File::open(input_path).unwrap();
     let data_size = input_file.metadata().unwrap().len() as usize;
     println!("File size: {}", data_size);
     let mut fit_content: Vec<u8> = vec![0; data_size];
