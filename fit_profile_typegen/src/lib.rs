@@ -43,7 +43,7 @@ pub enum FitMessageArrayType {
     VariableSizeArray,
 }
 
-pub fn read_messages(file_path: &str) -> Result<Vec<FitMessage>, Box<dyn Error>> {
+pub fn read_messages(csv_content: String) -> Result<Vec<FitMessage>, Box<dyn Error>> {
     const MESSAGE_NAME_IDX: usize = 0;
     const FIELD_DEF_NUMBER_IDX: usize = 1;
     const FIELD_NAME_IDX: usize = 2;
@@ -61,8 +61,7 @@ pub fn read_messages(file_path: &str) -> Result<Vec<FitMessage>, Box<dyn Error>>
     const PRODUCTS_IDX: usize = 14;
     const EXAMPLE_IDX: usize = 15;
 
-    let file = File::open(file_path)?;
-    let mut rdr = csv::Reader::from_reader(file);
+    let mut rdr = csv::Reader::from_reader(csv_content.as_bytes());
     let mut fit_messages: Vec<FitMessage> = Vec::new();
     let records = rdr.records();
     let mut first_message = true;
@@ -362,15 +361,15 @@ pub struct FitType {
     pub values: Vec<FitTypeValue>,
 }
 
-pub fn read_profile_types(file_path: &str) -> Result<Vec<FitType>, Box<dyn Error>> {
+pub fn read_profile_types(csv_content: String) -> Result<Vec<FitType>, Box<dyn Error>> {
     const TYPE_NAME_RECORD_IDX: usize = 0;
     const BASE_TYPE_RECORD_IDX: usize = 1;
     const VALUE_NAME_RECORD_IDX: usize = 2;
     const VALUE_RECORD_IDX: usize = 3;
     const COMMENT_RECORD_IDX: usize = 4;
 
-    let file = File::open(file_path)?;
-    let mut rdr = csv::Reader::from_reader(file);
+    let mut rdr = csv::Reader::from_reader(csv_content.as_bytes());
+
     let mut fit_types: Vec<FitType> = Vec::new();
     let mut curr_fit_type: FitType = FitType {
         type_name: String::new(),
