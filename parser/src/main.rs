@@ -1,8 +1,6 @@
-use byteorder::{BigEndian, ByteOrder, LittleEndian};
-use fit_parser::fit_header::{fit_crc, parse_fit_header_from_data, FitFileHeader};
-use num_enum::{IntoPrimitive, TryFromPrimitive};
+use byteorder::{ByteOrder, LittleEndian};
+use fit_parser::fit_header::{fit_crc, parse_fit_header_from_data};
 
-use std::convert::TryFrom;
 use std::io::Read;
 
 fn main() {

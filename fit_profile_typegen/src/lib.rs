@@ -249,65 +249,60 @@ fn parse_from_string_or_panic<T: FromStr>(s: &str, msg: &str) -> T {
 
 fn parse_fit_message_scale_record(s: &str) -> Vec<f32> {
     if s.is_empty() {
-        vec![1.0]
-    } else {
-        s.split(',')
-            .map(|s| {
-                s.trim()
-                    .parse::<f32>()
-                    .unwrap_or_else(|_| panic!("Could not parse f32 scale from value {}", s))
-            })
-            .collect::<Vec<f32>>()
+        return vec![1.0];
     }
+    s.split(',')
+        .map(|s| {
+            s.trim()
+                .parse::<f32>()
+                .unwrap_or_else(|_| panic!("Could not parse f32 scale from value {}", s))
+        })
+        .collect::<Vec<f32>>()
 }
 
 fn parse_fit_message_offset_record(s: &str) -> i16 {
     if s.is_empty() {
-        0
-    } else {
-        s.parse::<i16>()
-            .unwrap_or_else(|_| panic!("Could not parse offset from value {}", s))
+        return 0;
     }
+    s.parse::<i16>()
+        .unwrap_or_else(|_| panic!("Could not parse offset from value {}", s))
 }
 
 fn parse_fit_message_bits(s: &str) -> Vec<u8> {
     if s.is_empty() {
-        Vec::new()
-    } else {
-        s.split(',')
-            .map(|s| {
-                s.trim()
-                    .parse::<u8>()
-                    .unwrap_or_else(|_| panic!("Could not parse u8 bits value from value {}", s))
-            })
-            .collect::<Vec<u8>>()
+        return Vec::new();
     }
+    s.split(',')
+        .map(|s| {
+            s.trim()
+                .parse::<u8>()
+                .unwrap_or_else(|_| panic!("Could not parse u8 bits value from value {}", s))
+        })
+        .collect::<Vec<u8>>()
 }
 
 fn parse_fit_message_accumulate(input: &str) -> Vec<u8> {
     if input.is_empty() {
-        Vec::new()
-    } else {
-        input
-            .split(',')
-            .map(|s| {
-                s.trim().parse::<u8>().unwrap_or_else(|_| {
-                    panic!("Could not parse accumulate u8 values from value {}", input)
-                })
-            })
-            .collect::<Vec<u8>>()
+        return Vec::new();
     }
+    input
+        .split(',')
+        .map(|s| {
+            s.trim().parse::<u8>().unwrap_or_else(|_| {
+                panic!("Could not parse accumulate u8 values from value {}", input)
+            })
+        })
+        .collect::<Vec<u8>>()
 }
 
 fn parse_comma_delimited_string_list(input: &str) -> Vec<String> {
     if input.is_empty() {
-        Vec::new()
-    } else {
-        input
-            .split(',')
-            .map(|s| s.to_string())
-            .collect::<Vec<String>>()
+        return Vec::new();
     }
+    input
+        .split(',')
+        .map(|s| s.to_string())
+        .collect::<Vec<String>>()
 }
 
 // Parses a FIT message array type from string representation
