@@ -12,7 +12,7 @@ pub struct FitMessage {
     pub fields: Vec<FitMessageField>,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FitRefField {
     pub name: String,
     pub value: String,
@@ -342,19 +342,19 @@ fn test_parse_fixed_size_fit_message_array_definition() {
 }
 
 #[test]
-fn test_parse_variable_size_fit_message_arra_definition() {
+fn test_parse_variable_size_fit_message_array_definition() {
     let res = parse_fit_message_array("[N]");
     assert_eq!(res, FitMessageArrayType::VariableSizeArray);
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FitTypeValue {
     pub value_name: String,
     pub value: u32,
     pub comment: String,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FitType {
     pub type_name: String,
     pub base_type: String,
@@ -471,7 +471,7 @@ pub fn generate_fit_trait_as_string(t: FitType) -> String {
         } else {
             format!(" // {}", val.comment)
         };
-        let value_name_cased = if val.value_name.chars().next().unwrap().is_digit(10) {
+        let value_name_cased = if val.value_name.chars().next().unwrap().is_ascii_digit() {
             format!("_{}", val.value_name.to_case(Case::UpperSnake))
         } else {
             val.value_name.to_case(Case::UpperSnake)

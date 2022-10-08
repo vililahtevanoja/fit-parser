@@ -40,7 +40,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         } else {
             codegen_str.push_str(&generate_fit_trait_as_string(t));
         }
-        codegen_str.push_str("\n")
+        codegen_str.push('\n')
     }
     println!("Writing output to {}/fit.rs", out_dir);
     let mut f = File::create(format!("{}/fit.rs", out_dir))?;

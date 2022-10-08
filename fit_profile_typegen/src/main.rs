@@ -25,7 +25,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let messages = read_messages(messages_csv_content)?;
     println!("profile_types : {:#?}", types);
     println!("messages: {:#?}", messages);
-    let mut test_enum = codegen_scope.new_enum(&"test_enum".to_case(Case::UpperCamel));
+    let test_enum = codegen_scope.new_enum(&"test_enum".to_case(Case::UpperCamel));
     let mut variant = Variant::new(&"test_variant".to_case(Case::UpperCamel));
     variant.tuple("i64");
     test_enum.push_variant(variant);
