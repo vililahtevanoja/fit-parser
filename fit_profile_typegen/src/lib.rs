@@ -1,6 +1,5 @@
 use std::error::Error;
 
-use std::fs::File;
 use std::str::FromStr;
 
 use convert_case::{Case, Casing};
@@ -36,7 +35,7 @@ pub struct FitMessageField {
     pub example: Option<u8>,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum FitMessageArrayType {
     NotArray,
     FixedSizeArray(usize),
@@ -243,6 +242,7 @@ fn validate_ref_field_names_and_values(
     )
 }
 
+#[allow(dead_code)]
 fn parse_from_string_or_panic<T: FromStr>(s: &str, msg: &str) -> T {
     s.parse::<T>().unwrap_or_else(|_| panic!("{}", msg))
 }

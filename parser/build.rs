@@ -1,7 +1,6 @@
-use codegen::{Scope, Variant};
+use codegen::Scope;
 
 extern crate fit_profile_typegen;
-use convert_case::{Case, Casing};
 use fit_profile_typegen::generate_enum_type_as_string;
 use fit_profile_typegen::generate_fit_trait_as_string;
 use fit_profile_typegen::read_messages;
@@ -16,7 +15,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     // println!("cargo:rerun-if-changed=fit_definitions/profile_messages.csv");
     // println!("cargo:rerun-if-changed=fit_definitions/profile_types.csv");
     let out_dir = env::var("OUT_DIR").unwrap();
-    let mut codegen_scope = Scope::new();
+    let mut _codegen_scope = Scope::new();
     let mut profiles_csv_content = String::new();
     let mut messages_csv_content = String::new();
     std::fs::File::open("../fit_definitions/profile_types.csv")
